@@ -1,0 +1,24 @@
+logging:
+  level:
+    blog: WARN
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor: TRACE
+      nodeValue: WARN
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/covid_19_statistics?createDatabaseIfNotExist=true&useSSL=false
+    username: ${DATABASE_ROOT_USER}
+    password: ${DATABASE_ROOT_PASS}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+server:
+  port: 8080
