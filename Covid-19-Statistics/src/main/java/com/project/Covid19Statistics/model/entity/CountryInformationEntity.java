@@ -1,21 +1,24 @@
-package com.project.Covid19Statistics.model.entity.country;
+package com.project.Covid19Statistics.model.entity;
 
-import com.project.Covid19Statistics.model.entity.base.BaseEntity;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "country_info")
-public class CountryInformationEntity extends BaseEntity {
+public class CountryInformationEntity {
 
+    @Id
+    @Type(type = "uuid-char")
+    @Column(nullable = false)
+    private UUID id;
     @Column(nullable = false, length = 31)
     private String country;
     @Column(nullable = false, length = 2)
     private String countryCode;
-    @Column(nullable = false, length = 28)
+    @Column(nullable = false, length = 32)
     private String slug;
     @Column(nullable = false)
     private Integer newConfirmed;
@@ -31,8 +34,18 @@ public class CountryInformationEntity extends BaseEntity {
     private Short totalRecovered;
     @Column(nullable = false)
     private Instant date;
-    @Column
-    private Object premium;//TODO: refactor bc hibernate cannot map this type
+
+    public CountryInformationEntity() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public CountryInformationEntity setId(UUID id) {
+        this.id = id;
+        return this;
+    }
 
     public String getCountry() {
         return country;
@@ -121,15 +134,6 @@ public class CountryInformationEntity extends BaseEntity {
 
     public CountryInformationEntity setDate(Instant date) {
         this.date = date;
-        return this;
-    }
-
-    public Object getPremium() {
-        return premium;
-    }
-
-    public CountryInformationEntity setPremium(Object premium) {
-        this.premium = premium;
         return this;
     }
 }
