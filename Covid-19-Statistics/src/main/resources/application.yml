@@ -11,8 +11,8 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:covid_19_statistics
-    username: ${DATABASE_ROOT_USER}
-    password: ${DATABASE_ROOT_PASS}
+    username: root
+    password: 12345
   jpa:
     hibernate:
       ddl-auto: create

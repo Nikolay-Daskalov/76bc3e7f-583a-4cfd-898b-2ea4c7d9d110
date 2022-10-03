@@ -7,9 +7,9 @@ import com.project.Covid19Statistics.model.service.CountryInformationServiceMode
 import com.project.Covid19Statistics.service.CountryInformationService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -25,11 +25,13 @@ public class CLRImpl implements CommandLineRunner {
     private final CountryInformationService countryInformationService;
     private final ObjectMapper objectMapper;
     private final ModelMapper modelMapper;
+    private final ApplicationContext applicationContext;
 
-    public CLRImpl(CountryInformationService countryInformationService, ObjectMapper objectMapper, ModelMapper modelMapper) {
+    public CLRImpl(CountryInformationService countryInformationService, ObjectMapper objectMapper, ModelMapper modelMapper, ApplicationContext applicationContext) {
         this.countryInformationService = countryInformationService;
         this.objectMapper = objectMapper;
         this.modelMapper = modelMapper;
+        this.applicationContext = applicationContext;
     }
 
     @Override
@@ -38,6 +40,13 @@ public class CLRImpl implements CommandLineRunner {
 
         ResponseEntity<String> response = REST_TEMPLATE.getForEntity(DATA_URL, String.class);
         CountryInformationHolderBindingModel countriesInfo = this.objectMapper.readValue(response.getBody(), CountryInformationHolderBindingModel.class);
+
+        if (countriesInfo.countries() == null){
+            System.out.println("\n------------------------------------------------\n");
+            log.info("API is currently caching. Please wait a few minutes and then start the application again.");
+            SpringApplication.exit(this.applicationContext);
+            return;
+        }
 
         for (CountryInformationBindingModel countryInfo : countriesInfo.countries()) {
             CountryInformationServiceModel countryInfoServiceModel = this.modelMapper.map(countryInfo, CountryInformationServiceModel.class);
