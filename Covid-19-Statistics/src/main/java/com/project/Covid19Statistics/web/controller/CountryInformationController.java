@@ -30,11 +30,7 @@ public class CountryInformationController {
     }
 
     @GetMapping(path = API_END_POINT)
-    public ResponseEntity<CountryInformationViewModel> getInfoByCountryCode(@PathVariable(required = false) String countryCode) {
-
-        if (countryCode == null) {
-            throw new CountryInfoException("Country code must be present.", HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<CountryInformationViewModel> getInfoByCountryCode(@PathVariable String countryCode) {
 
         boolean isCountryCodeValid = CountryCodeValidator.isValid(countryCode);
 
