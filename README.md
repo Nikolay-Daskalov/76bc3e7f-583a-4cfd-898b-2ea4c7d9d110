@@ -1,5 +1,5 @@
 # Covid-19 Statistics app
-This repository is the project for Covid-19 statistics at Pro-ect Ltd.
+This repository is a project for Covid-19 that show statistics.
 
 ## Requirements
 Make sure that you have installed Java Version 17 (JDK 17) and Intellij IDEA on your local machine.
@@ -7,7 +7,7 @@ Make sure that you have installed Java Version 17 (JDK 17) and Intellij IDEA on 
 ## Installation
 Clone the repository on your local machine.
 
-Use `git clone https://github.com/Nikolay-Daskalov/76bc3e7f-583a-4cfd-898b-2ea4c7d9d110.git`
+Use `git clone https://github.com/Nikolay-Daskalov/Covid-19-Stats.git`
 
 ## Open
 Open the folder `/Covid-19-Statistics` as Intellij Project and wait **all dependencies 
